@@ -19,10 +19,13 @@ export const goodsFromServer: string[] = [
 enum SortType {
   Alphabet = 'Sort alphabetically',
   Length = 'Sort by length',
-  Default = ''
+  Default = '',
 }
 
-function getPreparedGoods(goods: string[], { selected, reverse }: { selected: SortType; reverse: boolean }) {
+function prepareGoods(
+  goods: string[],
+  { selected, reverse }: { selected: SortType; reverse: boolean },
+) {
   const preparedGoods = [...goods];
 
   if (selected !== SortType.Default) {
@@ -51,7 +54,10 @@ export const App = () => {
   const [selected, setSelected] = useState<SortType>(SortType.Default);
   const [reverse, setReverse] = useState<boolean>(false);
 
-  const visibleGoods: string[] = getPreparedGoods(goodsFromServer, { selected, reverse });
+  const visibleGoods: string[] = prepareGoods(goodsFromServer, {
+    selected,
+    reverse,
+  });
 
   const handleReverseClick = () => {
     setReverse(prev => !prev);
